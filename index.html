@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanda Urmar - Discover Our Community</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-dark: rgba(0, 0, 0, 0.1);
+            
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-6: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            --gradient-main: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 20px 64px rgba(0, 0, 0, 0.2);
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background: var(--dark);
+            color: white;
+        }
+
+        /* Cursor Effects */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            backdrop-filter: invert(1);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.15s ease;
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: var(--gradient-main);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 50%, #c7d2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out, glow 3s ease-in-out infinite alternate;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .btn-hero {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            padding: 18px 36px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-hero:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary-hero {
+            background: var(--gradient-2);
+            border: none;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(15, 23, 42, 0.8) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8) !important;
+            margin: 0 15px;
+            padding: 8px 16px !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::before {
+            width: 80%;
+        }
+
+        /* Sections */
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-dark {
+            background: var(--dark);
+        }
+
+        .section-light {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Search Section */
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-wrapper {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .search-wrapper:hover {
+            box-shadow: var(--shadow-glow);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 20px 60px 20px 24px;
+            border: none;
+            background: transparent;
+            font-size: 1.1rem;
+            color: white;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gradient-2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 30px rgba(236, 72, 153, 0.5);
+        }
+
+        /* Category Cards */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-20px) rotateX(5deg);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .category-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .category-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 25px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.2) rotateY(10deg);
+        }
+
+        .category-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .category-count {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Featured Places */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .place-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .place-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .place-image {
+            height: 220px;
+            background: var(--gradient-3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .place-image::after {
+            content: '\f3c5';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .place-card:hover .place-image::after {
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .place-info {
+            padding: 30px;
+        }
+
+        .place-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .place-location {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .place-rating {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 1.1rem;
+        }
+
+        .rating-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Areas Tags */
+        .areas-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .area-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            color: white;
+            padding: 16px 28px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .area-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-4);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .area-tag:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(67, 233, 123, 0.3);
+        }
+
+        .area-tag:hover::before {
+            left: 0;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 80px 0 40px;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h5 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            }
+            100% {
+                text-shadow: 0 0 40px rgba(255, 255, 255, 0.3), 0 0 60px rgba(102, 126, 234, 0.2);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 1;
+            visibility: visible;
+            transition: all 0.8s ease;
+        }
+
+        .loading-overlay.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .categories-grid,
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-link {
+                margin: 0.5rem 0;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+        }
+
+        /* Category specific gradients */
+        .schools { background: var(--gradient-1); }
+        .restaurants { background: var(--gradient-2); }
+        .shops { background: var(--gradient-3); }
+        .hospitals { background: var(--gradient-4); }
+        .religious { background: var(--gradient-5); }
+        .transport { background: var(--gradient-6); }
+        .parks { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .industrial { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-map-marker-alt me-2"></i>Tanda Urmar</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#categories">Explore</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#featured">Featured</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#areas">Areas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Connect</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="particles" id="particles"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hero-content">
+                        <h1>Discover Tanda Urmar</h1>
+                        <p class="hero-subtitle">Your gateway to exploring the vibrant heart of our community - from bustling markets to serene temples, modern schools to traditional eateries</p>
+                        <div class="hero-buttons">
+                            <a href="#categories" class="btn-hero btn-primary-hero">
+                                <i class="fas fa-compass"></i>
+                                Start Exploring
+                            </a>
+                            <a href="#featured" class="btn-hero">
+                                <i class="fas fa-star"></i>
+                                Featured Places
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5">
+                    <h2 class="section-title animate-on-scroll">Find Anything, Anywhere</h2>
+                    <p class="section-subtitle animate-on-scroll">Search through our comprehensive directory of local businesses, services, and landmarks</p>
+                </div>
+                <div class="col-lg-12">
+                    <div class="search-container animate-on-scroll">
+                        <div class="search-wrapper">
+                            <input type="text" class="search-input" placeholder="Search restaurants, shops, schools, hospitals, parks...">
+                            <button class="search-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="150">0</span>
+                        <div class="stat-label">Local Businesses</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="10">0</span>
+                        <div class="stat-label">Areas Covered</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="1200">0</span>
+                        <div class="stat-label">Happy Visitors</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="8">0</span>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section section-light" id="categories">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5">
+                    <h2 class="section-title animate-on-scroll">Explore by Category</h2>
+                    <p class="section-subtitle animate-on-scroll">Dive into the diverse ecosystem of our community</p>
+                </div>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card animate-on-scroll" onclick="window.location.href='educational_institutes.html'">
+    <div class="category-icon schools">
+        <i class="fas fa-graduation-cap"></i>
+    </div>
+    <h4 class="category-title">Educational Institutes</h4>
+    <p class="category-count">12 schools & colleges</p>
+</div>
+                <div class="category-card animate-on-scroll" onclick="filterCategory('restaurants')">
+                    <div class="category-icon restaurants">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h4 class="category-title">Food & Dining</h4>
+                    <p class="category-count">28 restaurants & cafes</p>
+                </div>
+                <div class="category-card animate-on-scroll" onclick="filterCategory('shops')">
+                    <div class="category-icon shops">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h4 class="category-title">Shopping</h4>
+                    <p class="category-count">45 shops & markets</p>
+                </div>
+                <div class="category-card animate-on-scroll" onclick="filterCategory('hospitals')">
+                    <div class="category-icon hospitals">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h4 class="category-title">Healthcare</h4>
+                    <p class="category-count">8 hospitals & clinics</p>
+                </div>
+                <div class="category-card animate-on-scroll" onclick="filterCategory('religious')">
+                    <div class="category-icon religious">
+                        <i class="fas fa-place-of-worship"></i>
+                    </div>
+                    <h4 class="category-title">Religious Places</h4>
+                    <p class="category-count">15 temples & mosques</p>
+                </div>
+                <div class="category-card animate-on-scroll" onclick="filterCategory('transport')">
+                    <div class="category-icon transport">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <h4 class="category-title">Transportation</h4>
+                    <p class="category-count">6 stations & stops</p>
+                </div>
+                <div class="category-card animate-on-scroll" onclick="filterCategory('parks')">
+                    <div class="category-icon parks">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h4 class="category-title">Parks & Recreation</h4>
+                    <p class="category-count">10 parks & grounds</p>
+                </div>
+                <div class="category-card animate-on-scroll" onclick="filterCategory('industrial')">
+                    <div class="category-icon industrial">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h4 class="category-title">Industrial Areas</h4>
+                    <p class="category-count">4 zones & showrooms</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Places -->
+    <section class="section section-dark" id="featured">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5">
+                    <h2 class="section-title animate-on-scroll">Featured Destinations</h2>
+                    <p class="section-subtitle animate-on-scroll">Top-rated and most loved places in our community</p>
+                </div>
+            </div>
+            <div class="featured-grid">
+                <div class="place-card animate-on-scroll">
+                    <div class="place-image"></div>
+                    <div class="place-info">
+                        <h4 class="place-title">Tanda Central Market</h4>
+                        <div class="place-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Main Bazaar, Tanda
+                        </div>
+                        <div class="place-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">4.8 • 124 reviews</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="place-card animate-on-scroll">
+                    <div class="place-image"></div>
+                    <div class="place-info">
+                        <h4 class="place-title">Government Hospital Tanda</h4>
+                        <div class="place-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Hospital Road, Tanda
+                        </div>
+                        <div class="place-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-text">4.2 • 89 reviews</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="place-card animate-on-scroll">
+                    <div class="place-image"></div>
+                    <div class="place-info">
+                        <h4 class="place-title">Model Town Community Park</h4>
+                        <div class="place-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Model Town Colony
+                        </div>
+                        <div class="place-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">4.6 • 67 reviews</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="place-card animate-on-scroll">
+                    <div class="place-image"></div>
+                    <div class="place-info">
+                        <h4 class="place-title">Urmar Railway Station</h4>
+                        <div class="place-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Station Road, Urmar
+                        </div>
+                        <div class="place-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-text">4.1 • 156 reviews</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="place-card animate-on-scroll">
+                    <div class="place-image"></div>
+                    <div class="place-info">
+                        <h4 class="place-title">Ahiyapur Gurudwara</h4>
+                        <div class="place-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Main Street, Ahiyapur
+                        </div>
+                        <div class="place-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">4.9 • 203 reviews</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="place-card animate-on-scroll">
+                    <div class="place-image"></div>
+                    <div class="place-info">
+                        <h4 class="place-title">Dashmesh Shopping Complex</h4>
+                        <div class="place-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Dashmesh Nagar
+                        </div>
+                        <div class="place-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-text">4.3 • 91 reviews</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Areas Section -->
+    <section class="section section-light" id="areas">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5">
+                    <h2 class="section-title animate-on-scroll">Our Localities</h2>
+                    <p class="section-subtitle animate-on-scroll">Explore different neighborhoods and villages in the Tanda Urmar region</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="areas-container">
+                        <div class="area-tag animate-on-scroll" onclick="filterArea('tanda')">
+                            <i class="fas fa-city me-2"></i>Tanda
+                        </div>
+                        <div class="area-tag animate-on-scroll" onclick="filterArea('urmar')">
+                            <i class="fas fa-train me-2"></i>Urmar
+                        </div>
+                        <div class="area-tag animate-on-scroll" onclick="filterArea('ahiyapur')">
+                            <i class="fas fa-home me-2"></i>Ahiyapur
+                        </div>
+                        <div class="area-tag animate-on-scroll" onclick="filterArea('dashmesh-nagar')">
+                            <i class="fas fa-building me-2"></i>Dashmesh Nagar
+                        </div>
+                        <div class="area-tag animate-on-scroll" onclick="filterArea('model-town')">
+                            <i class="fas fa-urban me-2"></i>Model Town
+                        </div>
+                        <div class="area-tag animate-on-scroll" onclick="filterArea('basti')">
+                            <i class="fas fa-tree me-2"></i>Basti Village
+                        </div>
+                        <div class="area-tag animate-on-scroll" onclick="filterArea('dadiyaan')">
+                            <i class="fas fa-seedling me-2"></i>Dadiyaan Village
+                        </div>
+                        <div class="area-tag animate-on-scroll" onclick="filterArea('sallah')">
+                            <i class="fas fa-leaf me-2"></i>Sallah Village
+                        </div>
+                        <div class="area-tag animate-on-scroll" onclick="filterArea('moonka')">
+                            <i class="fas fa-mountain me-2"></i>Moonka Village
+                        </div>
+                        <div class="area-tag animate-on-scroll" onclick="filterArea('jaja')">
+                            <i class="fas fa-water me-2"></i>Jaja Village
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section animate-on-scroll">
+                    <h5><i class="fas fa-map-marker-alt me-2"></i>Tanda Urmar Portal</h5>
+                    <p class="mb-4">Connecting our community through digital innovation. Discover, explore, and celebrate the rich tapestry of places that make our region special.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section animate-on-scroll">
+                    <h5>Quick Navigation</h5>
+                    <a href="#home">Home</a>
+                    <a href="#categories">Categories</a>
+                    <a href="#featured">Featured Places</a>
+                    <a href="#areas">Areas</a>
+                    <a href="#contact">Contact Us</a>
+                </div>
+                <div class="footer-section animate-on-scroll">
+                    <h5>Popular Categories</h5>
+                    <a href="#" onclick="filterCategory('restaurants')">Restaurants & Food</a>
+                    <a href="#" onclick="filterCategory('shops')">Shopping Centers</a>
+                    <a href="educational_institutes.html" onclick="filterCategory('schools')">Educational Institutes</a>
+                    <a href="#" onclick="filterCategory('hospitals')">Healthcare Services</a>
+                    <a href="#" onclick="filterCategory('religious')">Religious Places</a>
+                </div>
+                <div class="footer-section animate-on-scroll">
+                    <h5>Get in Touch</h5>
+                    <p><i class="fas fa-envelope me-2"></i>hello@tandaurmar.com</p>
+                    <p><i class="fas fa-phone me-2"></i>+91 98765 43210</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>Tanda, Hoshiarpur<br>Punjab, India</p>
+                    <p class="mt-3"><strong>Business Hours:</strong><br>Mon - Sat: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tanda Urmar Community Portal. Crafted with <i class="fas fa-heart text-danger mx-1"></i> for our amazing community. All rights reserved.</p>
+                <p class="mt-2">Building bridges between tradition and technology • Proudly serving Tanda Urmar region</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Loading screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').classList.add('hide');
+            }, 1500);
+        });
+
+        // Custom cursor
+        const cursor = document.getElementById('cursor');
+        const cursorFollower = document.getElementById('cursorFollower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+
+        // Hide cursor on mobile
+        if (window.innerWidth <= 768) {
+            cursor.style.display = 'none';
+            cursorFollower.style.display = 'none';
+        }
+
+        // Particles animation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe'];
+            
+            setInterval(() => {
+                if (particlesContainer.children.length < 20) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.width = Math.random() * 6 + 4 + 'px';
+                    particle.style.height = particle.style.width;
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.animationDelay = Math.random() * 2 + 's';
+                    particle.style.animationDuration = (Math.random() * 20 + 15) + 's';
+                    
+                    particlesContainer.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 25000);
+                }
+            }, 3000);
+        }
+        
+        createParticles();
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation
+        const counters = document.querySelectorAll('.stat-number');
+        const counterObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.getAttribute('data-count'));
+                    let count = 0;
+                    const increment = target / 100;
+                    
+                    const updateCounter = () => {
+                        count += increment;
+                        if (count < target) {
+                            counter.textContent = Math.floor(count);
+                            setTimeout(updateCounter, 20);
+                        } else {
+                            counter.textContent = target;
+                        }
+                    };
+                    
+                    updateCounter();
+                    counterObserver.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => {
+            counterObserver.observe(counter);
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+
+        function performSearch() {
+            const query = searchInput.value.toLowerCase().trim();
+            if (query) {
+                // Add visual feedback
+                searchBtn.style.transform = 'translateY(-50%) scale(0.9)';
+                setTimeout(() => {
+                    searchBtn.style.transform = 'translateY(-50%) scale(1.1)';
+                }, 150);
+                
+                showNotification(`Searching for "${query}"...`);
+                // This will connect to your backend
+            }
+        }
+
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Category filtering with enhanced animations
+        function filterCategory(category) {
+            const categoryCards = document.querySelectorAll('.category-card');
+            
+            // Add ripple effect
+            categoryCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        card.style.transform = '';
+                    }, 200);
+                }, index * 50);
+            });
+            
+            showNotification(`Exploring ${category}...`);
+            // This will connect to your backend database
+        }
+
+        // Area filtering
+        function filterArea(area) {
+            const areaTags = document.querySelectorAll('.area-tag');
+            
+            areaTags.forEach(tag => {
+                tag.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    tag.style.transform = '';
+                }, 200);
+            });
+            
+            showNotification(`Discovering ${area}...`);
+            // This will connect to your backend database
+        }
+
+        // Enhanced navbar scroll effect
+        let lastScrollY = 0;
+        const navbar = document.querySelector('.navbar');
+        
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            
+            if (currentScrollY > 100) {
+                navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+                navbar.style.borderBottom = '1px solid rgba(255, 255, 255, 0.2)';
+            } else {
+                navbar.style.background = 'rgba(15, 23, 42, 0.8)';
+                navbar.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+            }
+            
+            // Hide/show navbar on scroll
+            if (currentScrollY > lastScrollY && currentScrollY > 200) {
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+
+        // Enhanced hover effects for cards
+        document.querySelectorAll('.category-card, .place-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-20px) rotateX(5deg)';
+                
+                // Add glow effect
+                if (this.classList.contains('category-card')) {
+                    this.style.boxShadow = '0 30px 80px rgba(0, 0, 0, 0.3), 0 0 40px rgba(102, 126, 234, 0.2)';
+                } else {
+                    this.style.boxShadow = '0 25px 60px rgba(0, 0, 0, 0.2), 0 0 30px rgba(99, 102, 241, 0.15)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+
+        // Notification system
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: rgba(99, 102, 241, 0.9);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 50px;
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                z-index: 10000;
+                transform: translateX(400px);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                font-weight: 500;
+                box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    notification.remove();
+                }, 400);
+            }, 3000);
+        }
+
+        // Add some visual feedback on page load
+        setTimeout(() => {
+            showNotification('Welcome to Tanda Urmar! ✨');
+        }, 2000);
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero');
+            if (parallax) {
+                const speed = scrolled * 0.5;
+                parallax.style.transform = `translateY(${speed}px)`;
+            }
+        });
+
+        // Enhanced mobile responsiveness
+        function handleResize() {
+            if (window.innerWidth <= 768) {
+                document.querySelectorAll('.category-card, .place-card').forEach(card => {
+                    card.addEventListener('touchstart', function() {
+                        this.style.transform = 'scale(0.98)';
+                    });
+                    card.addEventListener('touchend', function() {
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 150);
+                    });
+                });
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize();
+
+        // Add loading states for interactive elements
+        document.querySelectorAll('button, .btn-hero, .area-tag, .category-card').forEach(element => {
+            element.addEventListener('click', function() {
+                const original = this.innerHTML;
+                if (!this.classList.contains('loading')) {
+                    this.classList.add('loading');
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                    
+                    setTimeout(() => {
+                        this.innerHTML = original;
+                        this.classList.remove('loading');
+                    }, 1500);
+                }
+            });
+        });
+
+        console.log('🎉 Tanda Urmar Portal loaded successfully!');
+        console.log('🚀 Ready for backend integration with Flask and MySQL');
+    </script>
+</body>
+</html>

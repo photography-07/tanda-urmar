@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Institutes - Tanda Urmar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-dark: rgba(0, 0, 0, 0.1);
+            
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-main: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 20px 64px rgba(0, 0, 0, 0.2);
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background: var(--dark);
+            color: white;
+        }
+
+        /* Custom cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            backdrop-filter: invert(1);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.15s ease;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8) !important;
+            margin: 0 15px;
+            padding: 8px 16px !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--primary) !important;
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 60vh;
+            background: var(--gradient-main);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 76px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 50%, #c7d2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            font-weight: 300;
+        }
+
+        .breadcrumb-nav {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            padding: 12px 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .breadcrumb-nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb-nav a:hover {
+            color: white;
+        }
+
+        .breadcrumb-nav .current {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .filter-tab {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-tab:hover {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .filter-tab.active {
+            background: var(--gradient-1);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-filter {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .search-wrapper {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .search-wrapper:hover {
+            box-shadow: var(--shadow-glow);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 50px 16px 20px;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            color: white;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gradient-2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.7;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .institutes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .institute-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .institute-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .institute-card:hover {
+            transform: translateY(-10px) rotateX(2deg);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .institute-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .institute-header {
+            height: 200px;
+            background: var(--gradient-1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .institute-icon {
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .institute-card:hover .institute-icon {
+            transform: scale(1.2);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .institute-type-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .institute-info {
+            padding: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .institute-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .institute-location {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .institute-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .institute-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 1rem;
+        }
+
+        .rating-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .institute-type {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .institute-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-action {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn-action:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary-action {
+            background: var(--gradient-2);
+            border: none;
+        }
+
+        .btn-primary-action:hover {
+            background: var(--gradient-2);
+            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.3);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h5 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .filter-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .filter-tabs::-webkit-scrollbar {
+                height: 6px;
+            }
+            
+            .filter-tabs::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 3px;
+            }
+            
+            .filter-tabs::-webkit-scrollbar-thumb {
+                background: var(--primary);
+                border-radius: 3px;
+            }
+            
+            .institutes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-link {
+                margin: 0.5rem 0;
+            }
+            
+            .hero {
+                height: 50vh;
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Special styling for library section */
+        .library-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 80px 0;
+        }
+
+        .library-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .library-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .library-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            border-radius: 20px;
+            background: var(--gradient-4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            transition: all 0.4s ease;
+        }
+
+        .library-card:hover .library-icon {
+            transform: scale(1.1) rotateY(10deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><i class="fas fa-map-marker-alt me-2"></i>Tanda Urmar</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="educational_institutes.html">Education</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#restaurants">Restaurants</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#shops">Shops</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#hospitals">Healthcare</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hero-content">
+                        <h1>Educational Institutes</h1>
+                        <p class="hero-subtitle">Discover quality education centers, schools, colleges, and libraries in Tanda Urmar</p>
+                        <div class="breadcrumb-nav">
+                            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                            <i class="fas fa-chevron-right"></i>
+                            <span class="current">Educational Institutes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="filter-tabs" id="filterTabs">
+                        <div class="filter-tab active" data-filter="all">
+                            <i class="fas fa-th-large"></i>
+                            All Institutes
+                        </div>
+                        <div class="filter-tab" data-filter="school">
+                            <i class="fas fa-school"></i>
+                            Schools
+                        </div>
+                        <div class="filter-tab" data-filter="college">
+                            <i class="fas fa-university"></i>
+                            Colleges
+                        </div>
+                        <div class="filter-tab" data-filter="library">
+                            <i class="fas fa-book"></i>
+                            Libraries
+                        </div>
+                        <div class="filter-tab" data-filter="government">
+                            <i class="fas fa-landmark"></i>
+                            Government
+                        </div>
+                        <div class="filter-tab" data-filter="private">
+                            <i class="fas fa-building"></i>
+                            Private
+                        </div>
+                    </div>
+
+                    <div class="search-filter">
+                        <div class="search-wrapper">
+                            <input type="text" class="search-input" placeholder="Search schools, colleges, libraries..." id="instituteSearch">
+                            <button class="search-btn" onclick="searchInstitutes()">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="18">0</span>
+                        <div class="stat-label">Total Institutes</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="12">0</span>
+                        <div class="stat-label">Schools</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="4">0</span>
+                        <div class="stat-label">Colleges</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="2">0</span>
+                        <div class="stat-label">Libraries</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <!-- Schools Section -->
+            <div class="row mb-5">
+                <div class="col-lg-12 text-center mb-4">
+                    <h2 class="section-title animate-on-scroll">Schools</h2>
+                    <p class="section-subtitle animate-on-scroll">Primary and secondary education institutes in Tanda Urmar</p>
+                </div>
+            </div>
+            <div class="institutes-grid" id="schoolsGrid">
+                <div class="institute-card animate-on-scroll" data-type="school" data-category="private">
+                    <div class="institute-header">
+                        <div class="institute-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="institute-type-badge">Private</div>
+                    </div>
+                    <div class="institute-info">
+                        <h4 class="institute-title">M.C. Jolly D.A.V Public Sen. Sec. School</h4>
+                        <div class="institute-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Urmar
+                        </div>
+                        <div class="institute-details">
+                            <div class="institute-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.5 • 89 reviews</span>
+                            </div>
+                        </div>
+                        <div class="institute-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('mc-jolly')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('mc-jolly')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="institute-card animate-on-scroll" data-type="school" data-category="government">
+                    <div class="institute-header">
+                        <div class="institute-icon">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <div class="institute-type-badge">Government</div>
+                    </div>
+                    <div class="institute-info">
+                        <h4 class="institute-title">Govt. Sen. Sec. School (Boys)</h4>
+                        <div class="institute-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Tehsil Road, Tanda
+                        </div>
+                        <div class="institute-details">
+                            <div class="institute-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.2 • 156 reviews</span>
+                            </div>
+                        </div>
+                        <div class="institute-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('govt-boys')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('govt-boys')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="institute-card animate-on-scroll" data-type="school" data-category="government">
+                    <div class="institute-header">
+                        <div class="institute-icon">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <div class="institute-type-badge">Government</div>
+                    </div>
+                    <div class="institute-info">
+                        <h4 class="institute-title">Dr. Amir Singh Kalkat Memorial Senior Secondary School For Girls</h4>
+                        <div class="institute-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Urmar Tanda
+                        </div>
+                        <div class="institute-details">
+                            <div class="institute-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.2 • 156 reviews</span>
+                            </div>
+                        </div>
+                        <div class="institute-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('govt-boys')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('govt-boys')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="institute-card animate-on-scroll" data-type="school" data-category="private">
+                    <div class="institute-header">
+                        <div class="institute-icon">
+                            <i class="fas fa-cross"></i>
+                        </div>
+                        <div class="institute-type-badge">Private</div>
+                    </div>
+                    <div class="institute-info">
+                        <h4 class="institute-title">St. Mary Convent School</h4>
+                        <div class="institute-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Tanda
+                        </div>
+                        <div class="institute-details">
+                            <div class="institute-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.7 • 203 reviews</span>
+                            </div>
+                        </div>
+                        <div class="institute-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('st-mary')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('st-mary')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="institute-card animate-on-scroll" data-type="school" data-category="private">
+                    <div class="institute-header">
+                        <div class="institute-icon">
+                            <i class="fas fa-om"></i>
+                        </div>
+                        <div class="institute-type-badge">Private</div>
+                    </div>
+                    <div class="institute-info">
+                        <h4 class="institute-title">Hindu School</h4>
+                        <div class="institute-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Temple Street, Tanda
+                        </div>
+                        <div class="institute-details">
+                            <div class="institute-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.3 • 124 reviews</span>
+                            </div>
+                        </div>
+                        <div class="institute-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('hindu-school')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('hindu-school')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colleges Section -->
+            <div class="row mb-5">
+                <div class="col-lg-12 text-center mb-4">
+                    <h2 class="section-title animate-on-scroll">Colleges</h2>
+                    <p class="section-subtitle animate-on-scroll">Higher education institutes and professional colleges</p>
+                </div>
+            </div>
+            <div class="institutes-grid" id="collegesGrid">
+                <div class="institute-card animate-on-scroll" data-type="college" data-category="government">
+                    <div class="institute-header">
+                        <div class="institute-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="institute-type-badge">Government</div>
+                    </div>
+                    <div class="institute-info">
+                        <h4 class="institute-title">Giani Kartar Singh Memorial Government College</h4>
+                        <div class="institute-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Tanda
+                        </div>
+                        <div class="institute-details">
+                            <div class="institute-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.1 • 267 reviews</span>
+                            </div>
+                        </div>
+                        <div class="institute-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('govt-college')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('govt-college')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="institute-card animate-on-scroll" data-type="college" data-category="government">
+                    <div class="institute-header">
+                        <div class="institute-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="institute-type-badge">Government</div>
+                    </div>
+                    <div class="institute-info">
+                        <h4 class="institute-title">Government Industrial Training Institute</h4>
+                        <div class="institute-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            ITI Road, Tanda
+                        </div>
+                        <div class="institute-details">
+                            <div class="institute-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.1 • 267 reviews</span>
+                            </div>
+                        </div>
+                        <div class="institute-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('govt-college')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('govt-college')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="institute-card animate-on-scroll" data-type="college" data-category="private">
+                    <div class="institute-header">
+                        <div class="institute-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="institute-type-badge">Private</div>
+                    </div>
+                    <div class="institute-info">
+                        <h4 class="institute-title">HIMT College</h4>
+                        <div class="institute-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Industrial Area, Tanda
+                        </div>
+                        <div class="institute-details">
+                            <div class="institute-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.4 • 189 reviews</span>
+                            </div>
+                        </div>
+                        <div class="institute-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('himt-college')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('himt-college')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </section>
+
+    <!-- Libraries Section -->
+    <section class="library-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-12 text-center mb-4">
+                    <h2 class="section-title animate-on-scroll">Libraries</h2>
+                    <p class="section-subtitle animate-on-scroll">Knowledge centers and reading spaces for the community</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="library-card animate-on-scroll" data-type="library" data-category="public">
+                        <div class="library-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h4 class="institute-title">Tanda Public Library</h4>
+                        <div class="institute-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Main Bazaar, Tanda
+                        </div>
+                        <div class="institute-details">
+                            <div class="institute-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.0 • 45 reviews</span>
+                            </div>
+                        </div>
+                        <div class="institute-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('public-library')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('public-library')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="library-card animate-on-scroll" data-type="library" data-category="digital">
+                        <div class="library-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h4 class="institute-title">Digital Learning Center</h4>
+                        <div class="institute-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Model Town, Tanda
+                        </div>
+                        <div class="institute-details">
+                            <div class="institute-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.6 • 78 reviews</span>
+                            </div>
+                        </div>
+                        <div class="institute-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('digital-center')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('digital-center')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section animate-on-scroll">
+                    <h5><i class="fas fa-graduation-cap me-2"></i>Educational Excellence</h5>
+                    <p>Promoting quality education in Tanda Urmar through our comprehensive directory of schools, colleges, and learning centers.</p>
+                </div>
+                <div class="footer-section animate-on-scroll">
+                    <h5>Quick Links</h5>
+                    <a href="index.html">Home</a>
+                    <a href="#schools">Schools</a>
+                    <a href="#colleges">Colleges</a>
+                    <a href="#libraries">Libraries</a>
+                </div>
+                <div class="footer-section animate-on-scroll">
+                    <h5>Education Types</h5>
+                    <a href="#" onclick="filterByCategory('government')">Government Institutes</a>
+                    <a href="#" onclick="filterByCategory('private')">Private Schools</a>
+                    <a href="#" onclick="filterByCategory('college')">Higher Education</a>
+                    <a href="#" onclick="filterByCategory('library')">Libraries & Learning</a>
+                </div>
+                <div class="footer-section animate-on-scroll">
+                    <h5>Contact Information</h5>
+                    <p><i class="fas fa-envelope me-2"></i>education@tandaurmar.com</p>
+                    <p><i class="fas fa-phone me-2"></i>+91 98765 43210</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>Tanda, Hoshiarpur, Punjab</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tanda Urmar Educational Portal. Empowering education in our community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Custom cursor
+        const cursor = document.getElementById('cursor');
+        const cursorFollower = document.getElementById('cursorFollower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+
+        // Hide cursor on mobile
+        if (window.innerWidth <= 768) {
+            cursor.style.display = 'none';
+            cursorFollower.style.display = 'none';
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation
+        const counters = document.querySelectorAll('.stat-number');
+        const counterObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.getAttribute('data-count'));
+                    let count = 0;
+                    const increment = target / 50;
+                    
+                    const updateCounter = () => {
+                        count += increment;
+                        if (count < target) {
+                            counter.textContent = Math.floor(count);
+                            setTimeout(updateCounter, 40);
+                        } else {
+                            counter.textContent = target;
+                        }
+                    };
+                    
+                    updateCounter();
+                    counterObserver.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => {
+            counterObserver.observe(counter);
+        });
+
+        // Filter functionality
+        // Filter functionality
+const filterTabs = document.querySelectorAll('.filter-tab');
+const instituteCards = document.querySelectorAll('.institute-card, .library-card');
+
+filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Remove active class from all tabs
+        filterTabs.forEach(t => t.classList.remove('active'));
+        // Add active class to clicked tab
+        tab.classList.add('active');
+        
+        const filterValue = tab.getAttribute('data-filter');
+        filterInstitutes(filterValue);
+    });
+});
+
+function filterInstitutes(filter) {
+    instituteCards.forEach(card => {
+        const cardType = card.getAttribute('data-type');
+        const cardCategory = card.getAttribute('data-category');
+        
+        if (filter === 'all') {
+            card.style.display = 'block';
+            card.style.opacity = '1';
+        } else if (filter === cardType || filter === cardCategory) {
+            card.style.display = 'block';
+            card.style.opacity = '1';
+        } else {
+            card.style.display = 'none';
+            card.style.opacity = '0';
+        }
+    });
+    
+    // Re-trigger animations for visible cards
+    setTimeout(() => {
+        const visibleCards = document.querySelectorAll('.institute-card[style*="display: block"], .library-card[style*="display: block"]');
+        visibleCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.style.transform = 'translateY(0)';
+                card.style.opacity = '1';
+            }, index * 100);
+        });
+    }, 100);
+}
+
+// Search functionality
+function searchInstitutes() {
+    const searchTerm = document.getElementById('instituteSearch').value.toLowerCase();
+    
+    instituteCards.forEach(card => {
+        const title = card.querySelector('.institute-title').textContent.toLowerCase();
+        const location = card.querySelector('.institute-location').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || location.includes(searchTerm)) {
+            card.style.display = 'block';
+            card.style.opacity = '1';
+        } else {
+            card.style.display = 'none';
+            card.style.opacity = '0';
+        }
+    });
+}
+
+// Real-time search
+document.getElementById('instituteSearch').addEventListener('input', searchInstitutes);
+
+// View details function
+function viewDetails(instituteId) {
+    // Create a modal or redirect to details page
+    const instituteNames = {
+        'mc-jolly': 'M.C. Jolly School',
+        'govt-boys': 'Government Senior Secondary School (Boys)',
+        'govt-girls': 'Government Senior Secondary School (Girls)',
+        'st-mary': 'St. Mary School',
+        'hindu-school': 'Hindu School',
+        'urmar-primary': 'Government Primary School Urmar',
+        'little-angels': 'Little Angels School',
+        'islamia-school': 'Islamia School',
+        'green-valley': 'Green Valley School',
+        'govt-college': 'Government College Tanda',
+        'himt-college': 'HIMT College',
+        'nursing-college': 'Nursing College Tanda',
+        'iti-tanda': 'ITI Tanda',
+        'public-library': 'Tanda Public Library',
+        'digital-center': 'Digital Learning Center'
+    };
+    
+    const instituteName = instituteNames[instituteId] || 'Institute';
+    alert(`Viewing details for ${instituteName}. This would typically open a detailed information modal or redirect to a dedicated page with complete information about the institute including facilities, courses, contact details, admission process, and reviews.`);
+}
+
+// Get directions function
+function getDirections(instituteId) {
+    // Implement Google Maps integration
+    const instituteNames = {
+        'mc-jolly': 'M.C. Jolly School, Main Road, Tanda',
+        'govt-boys': 'Government Senior Secondary School (Boys), Civil Lines, Tanda',
+        'govt-girls': 'Government Senior Secondary School (Girls), Civil Lines, Tanda',
+        'st-mary': 'St. Mary School, Church Road, Tanda',
+        'hindu-school': 'Hindu School, Temple Street, Tanda',
+        'urmar-primary': 'Government Primary School Urmar, Urmar Village, Tanda',
+        'little-angels': 'Little Angels School, Model Town, Tanda',
+        'islamia-school': 'Islamia School, Mosque Road, Tanda',
+        'green-valley': 'Green Valley School, Green Avenue, Tanda',
+        'govt-college': 'Government College Tanda, College Road, Tanda',
+        'himt-college': 'HIMT College, Industrial Area, Tanda',
+        'nursing-college': 'Nursing College Tanda, Hospital Road, Tanda',
+        'iti-tanda': 'ITI Tanda, Technical Area, Tanda',
+        'public-library': 'Tanda Public Library, Main Bazaar, Tanda',
+        'digital-center': 'Digital Learning Center, Model Town, Tanda'
+    };
+    
+    const instituteName = instituteNames[instituteId] || 'Institute';
+    const googleMapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(instituteName)}`;
+    
+    // Open Google Maps in a new tab
+    window.open(googleMapsUrl, '_blank');
+}
+
+// Filter by category function for footer links
+function filterByCategory(category) {
+    // Remove active class from all tabs
+    filterTabs.forEach(t => t.classList.remove('active'));
+    
+    // Find and activate the appropriate tab
+    const targetTab = document.querySelector(`[data-filter="${category}"]`);
+    if (targetTab) {
+        targetTab.classList.add('active');
+        filterInstitutes(category);
+    }
+    
+    // Scroll to main content
+    document.querySelector('.main-content').scrollIntoView({ 
+        behavior: 'smooth' 
+    });
+}
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Add loading animation for actions
+document.querySelectorAll('.btn-action').forEach(btn => {
+    btn.addEventListener('click', function() {
+        this.classList.add('loading');
+        setTimeout(() => {
+            this.classList.remove('loading');
+        }, 2000);
+    });
+});
+
+// Navbar scroll effect
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(15, 23, 42, 0.98)';
+        navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+    } else {
+        navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+        navbar.style.boxShadow = 'none';
+    }
+});
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', function() {
+    // Trigger initial animations
+    setTimeout(() => {
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight) {
+                el.classList.add('animate');
+            }
+        });
+    }, 500);
+    
+    // Initialize filter to show all institutes
+    filterInstitutes('all');
+    
+    // Add hover effects to cards
+    document.querySelectorAll('.institute-card, .library-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) rotateX(2deg)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) rotateX(0)';
+        });
+    });
+});
+
+// Keyboard navigation for accessibility
+document.addEventListener('keydown', function(e) {
+    if (e.key === '/') {
+        e.preventDefault();
+        document.getElementById('instituteSearch').focus();
+    }
+    
+    if (e.key === 'Escape') {
+        document.getElementById('instituteSearch').blur();
+    }
+});
+
+// Error handling for missing elements
+window.addEventListener('error', function(e) {
+    console.log('An error occurred:', e.error);
+});
+
+    </script>
+</body>
+</html>
