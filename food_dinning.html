@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food & Dining - Tanda Urmar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-dark: rgba(0, 0, 0, 0.1);
+            
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-main: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 20px 64px rgba(0, 0, 0, 0.2);
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background: var(--dark);
+            color: white;
+        }
+
+        /* Custom cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            backdrop-filter: invert(1);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.15s ease;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8) !important;
+            margin: 0 15px;
+            padding: 8px 16px !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--primary) !important;
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 60vh;
+            background: var(--gradient-main);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 76px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 50%, #c7d2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            font-weight: 300;
+        }
+
+        .breadcrumb-nav {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            padding: 12px 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .breadcrumb-nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb-nav a:hover {
+            color: white;
+        }
+
+        .breadcrumb-nav .current {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .filter-tab {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-tab:hover {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .filter-tab.active {
+            background: var(--gradient-1);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-filter {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .search-wrapper {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .search-wrapper:hover {
+            box-shadow: var(--shadow-glow);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 50px 16px 20px;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            color: white;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gradient-2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.7;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .restaurants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .restaurant-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .restaurant-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-10px) rotateX(2deg);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .restaurant-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .restaurant-header {
+            height: 200px;
+            background: var(--gradient-1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .restaurant-icon {
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .restaurant-card:hover .restaurant-icon {
+            transform: scale(1.2);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .restaurant-type-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .restaurant-info {
+            padding: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .restaurant-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .restaurant-location {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .restaurant-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .restaurant-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 1rem;
+        }
+
+        .rating-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .restaurant-type {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .restaurant-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-action {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn-action:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary-action {
+            background: var(--gradient-2);
+            border: none;
+        }
+
+        .btn-primary-action:hover {
+            background: var(--gradient-2);
+            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.3);
+        }
+
+        /* Cuisine Section */
+        .cuisine-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 80px 0;
+        }
+
+        .cuisine-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .cuisine-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .cuisine-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            border-radius: 20px;
+            background: var(--gradient-4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            transition: all 0.4s ease;
+        }
+
+        .cuisine-card:hover .cuisine-icon {
+            transform: scale(1.1) rotateY(10deg);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h5 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Price Range Indicator */
+        .price-range {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 15px;
+        }
+
+        .price-range span {
+            color: var(--warning);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .filter-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .filter-tabs::-webkit-scrollbar {
+                height: 6px;
+            }
+            
+            .filter-tabs::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 3px;
+            }
+            
+            .filter-tabs::-webkit-scrollbar-thumb {
+                background: var(--primary);
+                border-radius: 3px;
+            }
+            
+            .restaurants-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-link {
+                margin: 0.5rem 0;
+            }
+            
+            .hero {
+                height: 50vh;
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><i class="fas fa-map-marker-alt me-2"></i>Tanda Urmar</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="educational_institutes.html">Education</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="food_dining.html">Food & Dining</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#shops">Shops</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#hospitals">Healthcare</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hero-content">
+                        <h1>Food & Dining</h1>
+                        <p class="hero-subtitle">Discover the best restaurants, cafes, bakeries, and street food in Tanda Urmar</p>
+                        <div class="breadcrumb-nav">
+                            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                            <i class="fas fa-chevron-right"></i>
+                            <span class="current">Food & Dining</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="filter-tabs" id="filterTabs">
+                        <div class="filter-tab active" data-filter="all">
+                            <i class="fas fa-utensils"></i>
+                            All Places
+                        </div>
+                        <div class="filter-tab" data-filter="restaurant">
+                            <i class="fas fa-hotel"></i>
+                            Restaurants
+                        </div>
+                        <div class="filter-tab" data-filter="cafe">
+                            <i class="fas fa-coffee"></i>
+                            Cafes
+                        </div>
+                        <div class="filter-tab" data-filter="bakery">
+                            <i class="fas fa-bread-slice"></i>
+                            Bakeries
+                        </div>
+                        <div class="filter-tab" data-filter="streetfood">
+                            <i class="fas fa-stand"></i>
+                            Street Food
+                        </div>
+                        <div class="filter-tab" data-filter="sweets">
+                            <i class="fas fa-candy-cane"></i>
+                            Sweet Shops
+                        </div>
+                        <div class="filter-tab" data-filter="fastfood">
+                            <i class="fas fa-hamburger"></i>
+                            Fast Food
+                        </div>
+                    </div>
+
+                    <div class="search-filter">
+                        <div class="search-wrapper">
+                            <input type="text" class="search-input" placeholder="Search restaurants, cafes, bakeries..." id="restaurantSearch">
+                            <button class="search-btn" onclick="searchRestaurants()">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="42">0</span>
+                        <div class="stat-label">Total Places</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="18">0</span>
+                        <div class="stat-label">Restaurants</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="12">0</span>
+                        <div class="stat-label">Cafes & Bakeries</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="12">0</span>
+                        <div class="stat-label">Street Food</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <!-- Restaurants Section -->
+            <div class="row mb-5">
+                <div class="col-lg-12 text-center mb-4">
+                    <h2 class="section-title animate-on-scroll">Restaurants</h2>
+                    <p class="section-subtitle animate-on-scroll">Fine dining and casual restaurants in Tanda Urmar</p>
+                </div>
+            </div>
+            <div class="restaurants-grid" id="restaurantsGrid">
+                <div class="restaurant-card animate-on-scroll" data-type="restaurant" data-category="indian">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Indian</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">Sky Light Pizza and cafe</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Tehsil Road, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-text">4.7 • 342 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                North Indian
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="window.open('https://skylightpizza.com/', '_blank')">
+                            <i class="fas fa-eye"></i>
+                                Website        
+                            </button>
+                            <button class="btn-action" onclick="getDirections('skylightpizza')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="restaurant-card animate-on-scroll" data-type="restaurant" data-category="indian">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Indian</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">The Food Shop</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Near Bus Stand, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-text">4.7 • 342 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                North Indian
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('thefoodshop')">
+                                <i class="fas fa-eye"></i>
+                                No Website
+                            </button>
+                            <button class="btn-action" onclick="getDirections('thefoodshop')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card animate-on-scroll" data-type="restaurant" data-category="multicuisine">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Multi-Cuisine</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">The Grand Restaurant</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Model Town, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.2 • 189 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                Multi-Cuisine
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('grand-restaurant')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('grand-restaurant')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card animate-on-scroll" data-type="restaurant" data-category="chinese">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Chinese</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">China Town</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Near Bus Stand, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.9 • 267 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                Chinese
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('china-town')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('china-town')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card animate-on-scroll" data-type="restaurant" data-category="punjabi">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Punjabi</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">Balle Balle Dhaba</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Urmar Road, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.3 • 156 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                Punjabi
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('balle-balle-dhaba')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('balle-balle-dhaba')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More Restaurants -->
+                <div class="restaurant-card animate-on-scroll" data-type="restaurant" data-category="south-indian">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="restaurant-type-badge">South Indian</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">Madras Cafe</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Gandhi Chowk, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-text">4.6 • 234 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                South Indian
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('madras-cafe')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('madras-cafe')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card animate-on-scroll" data-type="restaurant" data-category="italian">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Italian</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">Pizza Corner</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            College Road, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.1 • 198 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                Italian
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('pizza-corner')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('pizza-corner')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cafes -->
+                <div class="restaurant-card animate-on-scroll" data-type="cafe" data-category="coffee">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-coffee"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Cafe</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">Brew & Bean Cafe</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Main Market, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.8 • 145 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                Coffee & Snacks
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('brew-bean-cafe')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('brew-bean-cafe')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card animate-on-scroll" data-type="cafe" data-category="modern">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-coffee"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Modern Cafe</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">Urban Cafe</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            New Colony, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-text">4.5 • 89 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                Cafe & Desserts
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('urban-cafe')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('urban-cafe')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bakeries -->
+                <div class="restaurant-card animate-on-scroll" data-type="bakery" data-category="bakery">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-bread-slice"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Bakery</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">Fresh Bake Bakery</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Hospital Road, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.2 • 167 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                Bakery & Cakes
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('fresh-bake')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('fresh-bake')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card animate-on-scroll" data-type="bakery" data-category="confectionery">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-birthday-cake"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Confectionery</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">Sweet Dreams Bakery</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Clock Tower, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-text">4.6 • 203 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                Cakes & Pastries
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('sweet-dreams')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('sweet-dreams')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Street Food -->
+                <div class="restaurant-card animate-on-scroll" data-type="streetfood" data-category="chaat">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-hamburger"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Street Food</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">Sharma Chaat Corner</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Near Post Office, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.9 • 456 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                Chaat & Snacks
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('sharma-chaat')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('sharma-chaat')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card animate-on-scroll" data-type="streetfood" data-category="rolls">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-hotdog"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Rolls</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">Roll Express</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Station Road, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-text">4.4 • 312 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                Rolls & Wraps
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('roll-express')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('roll-express')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sweet Shops -->
+                <div class="restaurant-card animate-on-scroll" data-type="sweets" data-category="traditional">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-candy-cane"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Sweet Shop</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">Gupta Sweets</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Main Bazaar, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.7 • 289 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                Traditional Sweets
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('gupta-sweets')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('gupta-sweets')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fast Food -->
+                <div class="restaurant-card animate-on-scroll" data-type="fastfood" data-category="burgers">
+                    <div class="restaurant-header">
+                        <div class="restaurant-icon">
+                            <i class="fas fa-hamburger"></i>
+                        </div>
+                        <div class="restaurant-type-badge">Fast Food</div>
+                    </div>
+                    <div class="restaurant-info">
+                        <h4 class="restaurant-title">Burger Point</h4>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Youth Club Road, Tanda
+                        </div>
+                        <div class="price-range">
+                            <span>₹</span>
+                            <span>₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                            <span style="opacity: 0.3;">₹</span>
+                        </div>
+                        <div class="restaurant-details">
+                            <div class="restaurant-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.0 • 178 reviews</span>
+                            </div>
+                            <div class="restaurant-type">
+                                Burgers & Fries
+                            </div>
+                        </div>
+                        <div class="restaurant-actions">
+                            <button class="btn-action btn-primary-action" onclick="viewDetails('burger-point')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn-action" onclick="getDirections('burger-point')">
+                                <i class="fas fa-directions"></i>
+                                Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more cards as needed to reach 42 total places -->
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Cuisine Types Section -->
+    <section class="cuisine-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-title animate-on-scroll">Popular Cuisines</h2>
+                    <p class="section-subtitle animate-on-scroll">Explore different flavors and cuisines available in Tanda Urmar</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="cuisine-card animate-on-scroll" onclick="filterByCuisine('indian')">
+                        <div class="cuisine-icon">
+                            🍛
+                        </div>
+                        <h5 class="text-white mb-3">North Indian</h5>
+                        <p class="text-muted">Authentic Punjabi and North Indian dishes with rich flavors</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="cuisine-card animate-on-scroll" onclick="filterByCuisine('south-indian')">
+                        <div class="cuisine-icon">
+                            🥞
+                        </div>
+                        <h5 class="text-white mb-3">South Indian</h5>
+                        <p class="text-muted">Crispy dosas, fluffy idlis, and aromatic sambhar</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="cuisine-card animate-on-scroll" onclick="filterByCuisine('chinese')">
+                        <div class="cuisine-icon">
+                            🍜
+                        </div>
+                        <h5 class="text-white mb-3">Chinese</h5>
+                        <p class="text-muted">Indo-Chinese favorites like noodles, fried rice, and manchurian</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="cuisine-card animate-on-scroll" onclick="filterByCuisine('italian')">
+                        <div class="cuisine-icon">
+                            🍕
+                        </div>
+                        <h5 class="text-white mb-3">Italian</h5>
+                        <p class="text-muted">Delicious pizzas, pasta, and continental dishes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h5><i class="fas fa-map-marker-alt me-2"></i>Tanda Urmar</h5>
+                    <p class="text-muted">Your complete guide to food and dining in Tanda Urmar. Discover the best restaurants, cafes, and local eateries in the area.</p>
+                </div>
+                <div class="footer-section">
+                    <h5>Quick Links</h5>
+                    <a href="index.html">Home</a>
+                    <a href="educational_institutes.html">Education</a>
+                    <a href="food_dining.html">Food & Dining</a>
+                    <a href="#shops">Shops</a>
+                    <a href="#hospitals">Healthcare</a>
+                </div>
+                <div class="footer-section">
+                    <h5>Categories</h5>
+                    <a href="#restaurants">Restaurants</a>
+                    <a href="#cafes">Cafes</a>
+                    <a href="#bakeries">Bakeries</a>
+                    <a href="#street-food">Street Food</a>
+                    <a href="#sweets">Sweet Shops</a>
+                </div>
+                <div class="footer-section">
+                    <h5>Contact Info</h5>
+                    <a href="tel:+91-XXXXXXXXXX"><i class="fas fa-phone me-2"></i>+91-XXXXXXXXXX</a>
+                    <a href="mailto:info@tandaurmar.com"><i class="fas fa-envelope me-2"></i>info@tandaurmar.com</a>
+                    <a href="#"><i class="fas fa-globe me-2"></i>www.tandaurmar.com</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tanda Urmar Guide. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Custom cursor
+        const cursor = document.getElementById('cursor');
+        const cursorFollower = document.getElementById('cursorFollower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+
+        // Filter functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const restaurantCards = document.querySelectorAll('.restaurant-card');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                filterTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+
+                const filter = tab.getAttribute('data-filter');
+                
+                restaurantCards.forEach(card => {
+                    const cardType = card.getAttribute('data-type');
+                    if (filter === 'all' || cardType === filter) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeInUp 0.5s ease-out';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        function searchRestaurants() {
+            const searchInput = document.getElementById('restaurantSearch');
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            restaurantCards.forEach(card => {
+                const title = card.querySelector('.restaurant-title').textContent.toLowerCase();
+                const location = card.querySelector('.restaurant-location').textContent.toLowerCase();
+                const type = card.querySelector('.restaurant-type').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || location.includes(searchTerm) || type.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Search on Enter key
+        document.getElementById('restaurantSearch').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchRestaurants();
+            }
+        });
+
+        // View details function
+        function viewDetails(restaurantId) {
+            // You can implement detailed view modal or redirect to detail page
+            console.log('Viewing details for:', restaurantId);
+            alert('Restaurant details would be shown here. This would typically open a modal or redirect to a detailed page.');
+        }
+
+        // Get directions function
+        function getDirections(restaurantId) {
+            const foodNames = {
+                'skylightpizza': 'Sky Light pizza and cafe|Best Restaurant, Tanda',
+                'thefoodshop' : 'The Food Shop, Tanda'
+            };
+            // You can integrate with Google Maps or other map services
+            const foodName = foodNames[restaurantId] || 'Restaurant';
+            const googleMapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(foodName)}`;
+            //console.log('Getting directions for:', restaurantId);
+            //alert('Directions would be provided here. This would typically open Google Maps or similar navigation app.');
+            // Open Google Maps in a new tab
+            window.open(googleMapsUrl, '_blank');
+        }
+
+        // Filter by cuisine function
+        function filterByCuisine(cuisine) {
+            restaurantCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                if (cardCategory === cuisine) {
+                    card.style.display = 'block';
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Update active filter tab
+            filterTabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('data-filter') === 'restaurant') {
+                    tab.classList.add('active');
+                }
+            });
+        }
+
+        // Animate elements on scroll
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        
+        const animateOnScroll = () => {
+            animateElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('animate');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Run once on page load
+
+        // Counter animation for stats
+        const counters = document.querySelectorAll('.stat-number');
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const count = parseInt(counter.innerText);
+                const increment = target / 100;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 20);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        };
+
+        // Trigger counter animation when stats section is visible
+        const statsSection = document.querySelector('.stats-section');
+        let statsAnimated = false;
+
+        const checkStatsVisibility = () => {
+            const rect = statsSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0 && !statsAnimated) {
+                animateCounters();
+                statsAnimated = true;
+            }
+        };
+
+        window.addEventListener('scroll', checkStatsVisibility);
+        checkStatsVisibility(); // Run once on page load
+    </script>
+</body>
+</html>
